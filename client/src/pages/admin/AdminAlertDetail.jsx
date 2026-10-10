@@ -3,7 +3,6 @@ import {
   useEffect,
   useState
 } from 'react';
-
 import {
   FiAlertCircle,
   FiCheckCircle,
@@ -13,33 +12,24 @@ import {
   FiShield,
   FiUser
 } from 'react-icons/fi';
-
 import {
   useParams
 } from 'react-router-dom';
-
 import BackButton from '../../components/common/BackButton';
 import '../../styles/pages/admin-alert-detail.css';
-
 function AdminAlertDetail() {
   const { id } = useParams();
-
   const [alertData, setAlertData] = useState(null);
   const [activities, setActivities] = useState([]);
   const [locations, setLocations] = useState([]);
-
   const [isLoading, setIsLoading] = useState(true);
   const [isProcessing, setIsProcessing] = useState(false);
-
   const [errorMessage, setErrorMessage] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
-
   const [resolutionNote, setResolutionNote] = useState('');
-
   const loadAlert = useCallback(async () => {
     try {
       const token = localStorage.getItem('token');
-
       const response = await fetch(
         `https://silent-sos-api-cp9r.onrender.com/api/admin/alerts/${id}`,
         {
@@ -49,24 +39,19 @@ function AdminAlertDetail() {
           }
         }
       );
-
       const result = await response.json();
-
       if (!response.ok) {
         throw new Error(
           result.message ||
           'Unable to load alert details.'
         );
       }
-
       setAlertData(
         result?.data?.alert || null
       );
-
       setActivities(
         result?.data?.activities || []
       );
-
       setLocations(
         result?.data?.locations || []
       );
@@ -77,16 +62,13 @@ function AdminAlertDetail() {
       );
     }
   }, [id]);
-
   useEffect(() => {
     let isMounted = true;
-
     const loadInitialAlert = async () => {
       try {
         const token = localStorage.getItem('token');
-
         const response = await fetch(
-          `https://silent-sos-api-cp9r.onrender.com/api9r.onrender.com/api/admin/alerts/${id}`,
+          `https://silent-sos-api-cp9r.onrender.com/api/admin/alerts/${id}`,
           {
             method: 'GET',
             headers: {
@@ -94,25 +76,20 @@ function AdminAlertDetail() {
             }
           }
         );
-
         const result = await response.json();
-
         if (!response.ok) {
           throw new Error(
             result.message ||
             'Unable to load alert details.'
           );
         }
-
         if (isMounted) {
           setAlertData(
             result?.data?.alert || null
           );
-
           setActivities(
             result?.data?.activities || []
           );
-
           setLocations(
             result?.data?.locations || []
           );
@@ -130,14 +107,11 @@ function AdminAlertDetail() {
         }
       }
     };
-
     loadInitialAlert();
-
     return () => {
       isMounted = false;
     };
   }, [id]);
-
   const handleAcknowledge = async () => {
     if (
       !alertData?._id ||
@@ -146,14 +120,11 @@ function AdminAlertDetail() {
     ) {
       return;
     }
-
     setErrorMessage('');
     setSuccessMessage('');
     setIsProcessing(true);
-
     try {
       const token = localStorage.getItem('token');
-
       const response = await fetch(
         `https://silent-sos-api-cp9r.onrender.com/api/admin/alerts/${alertData._id}/acknowledge`,
         {
@@ -163,20 +134,16 @@ function AdminAlertDetail() {
           }
         }
       );
-
       const result = await response.json();
-
       if (!response.ok) {
         throw new Error(
           result.message ||
           'Unable to acknowledge alert.'
         );
       }
-
       setSuccessMessage(
         'Emergency alert acknowledged successfully.'
       );
-
       await loadAlert();
     } catch (error) {
       setErrorMessage(
@@ -187,7 +154,6 @@ function AdminAlertDetail() {
       setIsProcessing(false);
     }
   };
-
   const handleResolve = async () => {
     if (
       !alertData?._id ||
@@ -198,24 +164,18 @@ function AdminAlertDetail() {
     ) {
       return;
     }
-
     const cleanedNote = resolutionNote.trim();
-
     if (!cleanedNote) {
       setErrorMessage(
         'Please add a resolution note before resolving the alert.'
       );
-
       return;
     }
-
     setErrorMessage('');
     setSuccessMessage('');
     setIsProcessing(true);
-
     try {
       const token = localStorage.getItem('token');
-
       const response = await fetch(
         `https://silent-sos-api-cp9r.onrender.com/api/admin/alerts/${alertData._id}/resolve`,
         {
@@ -229,22 +189,17 @@ function AdminAlertDetail() {
           })
         }
       );
-
       const result = await response.json();
-
       if (!response.ok) {
         throw new Error(
           result.message ||
           'Unable to resolve alert.'
         );
       }
-
       setSuccessMessage(
         'Emergency alert resolved successfully.'
       );
-
       setResolutionNote('');
-
       await loadAlert();
     } catch (error) {
       setErrorMessage(
@@ -255,34 +210,26 @@ function AdminAlertDetail() {
       setIsProcessing(false);
     }
   };
-
   const formatDate = (date) => {
     if (!date) {
       return 'Not available';
     }
-
     return new Date(date).toLocaleString();
   };
-
   const getStatusClass = (status) => {
     switch (status) {
       case 'ACTIVE':
         return 'admin-detail-status admin-detail-status--active';
-
       case 'ACKNOWLEDGED':
         return 'admin-detail-status admin-detail-status--acknowledged';
-
       case 'RESOLVING':
         return 'admin-detail-status admin-detail-status--resolving';
-
       case 'RESOLVED':
         return 'admin-detail-status admin-detail-status--resolved';
-
       default:
         return 'admin-detail-status';
     }
   };
-
   if (isLoading) {
     return (
       <main className="admin-detail-page">
@@ -292,7 +239,6 @@ function AdminAlertDetail() {
               className="admin-detail-loader"
               aria-hidden="true"
             />
-
             <p>
               Loading alert details...
             </p>
@@ -301,7 +247,6 @@ function AdminAlertDetail() {
       </main>
     );
   }
-
   if (errorMessage && !alertData) {
     return (
       <main className="admin-detail-page">
@@ -312,16 +257,13 @@ function AdminAlertDetail() {
                 aria-hidden="true"
               />
             </div>
-
             <h1>
               Alert unavailable
             </h1>
-
             <p>
               {errorMessage ||
                 'The requested alert could not be found.'}
             </p>
-
             <div className="admin-detail-back-button">
               <BackButton
                 fallback="/admin/alerts"
@@ -333,19 +275,14 @@ function AdminAlertDetail() {
       </main>
     );
   }
-
   const user = alertData.userId;
-
   const canAcknowledge =
     alertData.status === 'ACTIVE';
-
   const canResolve =
     alertData.status === 'ACKNOWLEDGED' ||
     alertData.status === 'RESOLVING';
-
   const isResolved =
     alertData.status === 'RESOLVED';
-
   return (
     <main className="admin-detail-page">
       <div className="page-container admin-detail-main">
@@ -355,24 +292,20 @@ function AdminAlertDetail() {
             label="Back to alert monitoring"
           />
         </div>
-
         <header className="admin-detail-header">
           <div>
             <p className="admin-detail-eyebrow">
               EMERGENCY ALERT
             </p>
-
             <h1>
               {alertData.alertId ||
                 'Emergency alert'}
             </h1>
-
             <p>
               Review the complete emergency alert
               record and associated activity.
             </p>
           </div>
-
           <span
             className={getStatusClass(
               alertData.status
@@ -381,43 +314,36 @@ function AdminAlertDetail() {
             {alertData.status || 'UNKNOWN'}
           </span>
         </header>
-
         {errorMessage && (
           <div className="dashboard-notice dashboard-notice--error">
             <FiAlertCircle
               aria-hidden="true"
             />
-
             <span>
               {errorMessage}
             </span>
           </div>
         )}
-
         {successMessage && (
           <div className="dashboard-notice dashboard-notice--success">
             <FiCheckCircle
               aria-hidden="true"
             />
-
             <span>
               {successMessage}
             </span>
           </div>
         )}
-
         <section className="admin-detail-overview">
           <div className="admin-detail-overview__icon">
             <FiShield
               aria-hidden="true"
             />
           </div>
-
           <div>
             <span>
               Alert triggered
             </span>
-
             <strong>
               {formatDate(
                 alertData.triggerTime
@@ -425,7 +351,6 @@ function AdminAlertDetail() {
             </strong>
           </div>
         </section>
-
         <section className="admin-detail-card admin-detail-card--full">
           <div className="admin-detail-card__header">
             <div className="admin-detail-card__icon">
@@ -433,31 +358,26 @@ function AdminAlertDetail() {
                 aria-hidden="true"
               />
             </div>
-
             <div>
               <p>
                 ALERT MANAGEMENT
               </p>
-
               <h2>
                 Response actions
               </h2>
             </div>
           </div>
-
           {canAcknowledge && (
             <div className="admin-detail-action-panel">
               <div>
                 <strong>
                   Acknowledge this emergency alert
                 </strong>
-
                 <p>
                   Confirm that the emergency alert has
                   been received and is being handled.
                 </p>
               </div>
-
               <button
                 type="button"
                 className="admin-detail-action-button admin-detail-action-button--primary"
@@ -467,7 +387,6 @@ function AdminAlertDetail() {
                 <FiCheckCircle
                   aria-hidden="true"
                 />
-
                 <span>
                   {isProcessing
                     ? 'Acknowledging alert...'
@@ -476,27 +395,23 @@ function AdminAlertDetail() {
               </button>
             </div>
           )}
-
           {canResolve && (
             <div className="admin-detail-action-panel">
               <div>
                 <strong>
                   Resolve this emergency alert
                 </strong>
-
                 <p>
                   Add a short resolution note and close
                   the emergency alert.
                 </p>
               </div>
-
               <label
                 htmlFor="admin-resolution-note"
                 className="admin-detail-action-label"
               >
                 Resolution note
               </label>
-
               <textarea
                 id="admin-resolution-note"
                 value={resolutionNote}
@@ -510,7 +425,6 @@ function AdminAlertDetail() {
                 rows={4}
                 disabled={isProcessing}
               />
-
               <button
                 type="button"
                 className="admin-detail-action-button admin-detail-action-button--resolve"
@@ -520,7 +434,6 @@ function AdminAlertDetail() {
                 <FiCheckCircle
                   aria-hidden="true"
                 />
-
                 <span>
                   {isProcessing
                     ? 'Resolving alert...'
@@ -529,18 +442,15 @@ function AdminAlertDetail() {
               </button>
             </div>
           )}
-
           {isResolved && (
             <div className="admin-detail-action-complete">
               <FiCheckCircle
                 aria-hidden="true"
               />
-
               <div>
                 <strong>
                   Emergency alert resolved
                 </strong>
-
                 <p>
                   This alert has been closed and no
                   further response action is required.
@@ -549,7 +459,6 @@ function AdminAlertDetail() {
             </div>
           )}
         </section>
-
         <div className="admin-detail-grid">
           <section className="admin-detail-card">
             <div className="admin-detail-card__header">
@@ -558,57 +467,47 @@ function AdminAlertDetail() {
                   aria-hidden="true"
                 />
               </div>
-
               <div>
                 <p>
                   ACCOUNT
                 </p>
-
                 <h2>
                   User information
                 </h2>
               </div>
             </div>
-
             <div className="admin-detail-info-list">
               <div>
                 <span>
                   Name
                 </span>
-
                 <strong>
                   {user?.name ||
                     'Not available'}
                 </strong>
               </div>
-
               <div>
                 <span>
                   Email
                 </span>
-
                 <strong>
                   {user?.email ||
                     'Not available'}
                 </strong>
               </div>
-
               <div>
                 <span>
                   Phone
                 </span>
-
                 <strong>
                   {user?.phone ||
                     'Not available'}
                 </strong>
               </div>
-
               <div>
                 <span>
                   Account status
                 </span>
-
                 <strong>
                   {user?.isActive
                     ? 'Active'
@@ -616,7 +515,6 @@ function AdminAlertDetail() {
                 </strong>
               </div>
             </div>
-
             {user?.phone && (
               <a
                 href={`tel:${user.phone}`}
@@ -625,12 +523,10 @@ function AdminAlertDetail() {
                 <FiPhone
                   aria-hidden="true"
                 />
-
                 Contact user
               </a>
             )}
           </section>
-
           <section className="admin-detail-card">
             <div className="admin-detail-card__header">
               <div className="admin-detail-card__icon">
@@ -638,18 +534,15 @@ function AdminAlertDetail() {
                   aria-hidden="true"
                 />
               </div>
-
               <div>
                 <p>
                   LOCATION
                 </p>
-
                 <h2>
                   Current location
                 </h2>
               </div>
             </div>
-
             <div className="admin-detail-location">
               {alertData.currentLocation ||
               alertData.initialLocation ? (
@@ -670,7 +563,6 @@ function AdminAlertDetail() {
                       ).longitude
                     }
                   </strong>
-
                   <span>
                     Location available from the
                     emergency alert.
@@ -684,7 +576,6 @@ function AdminAlertDetail() {
             </div>
           </section>
         </div>
-
         <section className="admin-detail-card admin-detail-card--full">
           <div className="admin-detail-card__header">
             <div className="admin-detail-card__icon">
@@ -692,24 +583,20 @@ function AdminAlertDetail() {
                 aria-hidden="true"
               />
             </div>
-
             <div>
               <p>
                 ACTIVITY
               </p>
-
               <h2>
                 Activity timeline
               </h2>
             </div>
           </div>
-
           {activities.length === 0 ? (
             <div className="admin-detail-empty">
               <FiCheckCircle
                 aria-hidden="true"
               />
-
               <p>
                 No activity records available.
               </p>
@@ -728,21 +615,18 @@ function AdminAlertDetail() {
                     <div className="admin-detail-timeline__marker">
                       <span />
                     </div>
-
                     <div className="admin-detail-timeline__content">
                       <div>
                         <strong>
                           {activity.action ||
                             'Activity'}
                         </strong>
-
                         <time>
                           {formatDate(
                             activity.timestamp
                           )}
                         </time>
                       </div>
-
                       <p>
                         {activity.actorType ||
                           'SYSTEM'}
@@ -754,7 +638,6 @@ function AdminAlertDetail() {
             </div>
           )}
         </section>
-
         <section className="admin-detail-card admin-detail-card--full">
           <div className="admin-detail-card__header">
             <div className="admin-detail-card__icon">
@@ -762,24 +645,20 @@ function AdminAlertDetail() {
                 aria-hidden="true"
               />
             </div>
-
             <div>
               <p>
                 TRACKING
               </p>
-
               <h2>
                 Location history
               </h2>
             </div>
           </div>
-
           {locations.length === 0 ? (
             <div className="admin-detail-empty">
               <FiMapPin
                 aria-hidden="true"
               />
-
               <p>
                 No location updates available.
               </p>
@@ -800,7 +679,6 @@ function AdminAlertDetail() {
                         {location.latitude},{' '}
                         {location.longitude}
                       </strong>
-
                       <span>
                         Accuracy:{' '}
                         {location.accuracy ??
@@ -810,7 +688,6 @@ function AdminAlertDetail() {
                           ' m'}
                       </span>
                     </div>
-
                     <time>
                       {formatDate(
                         location.timestamp
@@ -822,7 +699,6 @@ function AdminAlertDetail() {
             </div>
           )}
         </section>
-
         <section className="admin-detail-card admin-detail-card--full">
           <div className="admin-detail-card__header">
             <div className="admin-detail-card__icon">
@@ -830,24 +706,20 @@ function AdminAlertDetail() {
                 aria-hidden="true"
               />
             </div>
-
             <div>
               <p>
                 RESOLUTION
               </p>
-
               <h2>
                 Alert outcome
               </h2>
             </div>
           </div>
-
           <div className="admin-detail-resolution">
             <div>
               <span>
                 Response time
               </span>
-
               <strong>
                 {alertData.responseTime
                   ? formatDate(
@@ -856,24 +728,20 @@ function AdminAlertDetail() {
                   : 'Not available'}
               </strong>
             </div>
-
             <div>
               <span>
                 Resolved at
               </span>
-
               <strong>
                 {formatDate(
                   alertData.resolvedAt
                 )}
               </strong>
             </div>
-
             <div>
               <span>
                 Resolution note
               </span>
-
               <strong>
                 {alertData.resolutionNote ||
                   'No resolution note provided.'}
@@ -885,5 +753,4 @@ function AdminAlertDetail() {
     </main>
   );
 }
-
 export default AdminAlertDetail;
