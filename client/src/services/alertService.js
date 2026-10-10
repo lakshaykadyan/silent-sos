@@ -1,4 +1,5 @@
-const API_BASE_URL = 'http://localhost:5000/api';
+const API_BASE_URL =
+  'https://silent-sos-api-cp9r.onrender.com/api';
 
 const getToken = () => {
   return localStorage.getItem('token');
@@ -19,6 +20,26 @@ const getAuthHeaders = () => {
   };
 };
 
+const parseResponse = async (response, fallbackMessage) => {
+  let result;
+
+  try {
+    result = await response.json();
+  } catch {
+    throw new Error(
+      'The server returned an invalid response. Please try again.'
+    );
+  }
+
+  if (!response.ok) {
+    throw new Error(
+      result.message || fallbackMessage
+    );
+  }
+
+  return result;
+};
+
 const createAlert = async (location) => {
   const response = await fetch(
     `${API_BASE_URL}/alerts`,
@@ -33,16 +54,10 @@ const createAlert = async (location) => {
     }
   );
 
-  const result = await response.json();
-
-  if (!response.ok) {
-    throw new Error(
-      result.message ||
-      'Unable to create emergency alert.'
-    );
-  }
-
-  return result;
+  return parseResponse(
+    response,
+    'Unable to create emergency alert.'
+  );
 };
 
 const getActiveAlert = async () => {
@@ -54,16 +69,10 @@ const getActiveAlert = async () => {
     }
   );
 
-  const result = await response.json();
-
-  if (!response.ok) {
-    throw new Error(
-      result.message ||
-      'Unable to retrieve active alert.'
-    );
-  }
-
-  return result;
+  return parseResponse(
+    response,
+    'Unable to retrieve active alert.'
+  );
 };
 
 const getAlertHistory = async () => {
@@ -75,16 +84,10 @@ const getAlertHistory = async () => {
     }
   );
 
-  const result = await response.json();
-
-  if (!response.ok) {
-    throw new Error(
-      result.message ||
-      'Unable to retrieve alert history.'
-    );
-  }
-
-  return result;
+  return parseResponse(
+    response,
+    'Unable to retrieve alert history.'
+  );
 };
 
 const getAlertById = async (alertId) => {
@@ -96,21 +99,13 @@ const getAlertById = async (alertId) => {
     }
   );
 
-  const result = await response.json();
-
-  if (!response.ok) {
-    throw new Error(
-      result.message ||
-      'Unable to retrieve alert details.'
-    );
-  }
-
-  return result;
+  return parseResponse(
+    response,
+    'Unable to retrieve alert details.'
+  );
 };
 
-const getAlertLocationHistory = async (
-  alertId
-) => {
+const getAlertLocationHistory = async (alertId) => {
   const response = await fetch(
     `${API_BASE_URL}/alerts/${alertId}/location`,
     {
@@ -119,22 +114,13 @@ const getAlertLocationHistory = async (
     }
   );
 
-  const result = await response.json();
-
-  if (!response.ok) {
-    throw new Error(
-      result.message ||
-      'Unable to retrieve location history.'
-    );
-  }
-
-  return result;
+  return parseResponse(
+    response,
+    'Unable to retrieve location history.'
+  );
 };
 
-const updateAlertLocation = async (
-  alertId,
-  location
-) => {
+const updateAlertLocation = async (alertId, location) => {
   const response = await fetch(
     `${API_BASE_URL}/alerts/${alertId}/location`,
     {
@@ -148,22 +134,13 @@ const updateAlertLocation = async (
     }
   );
 
-  const result = await response.json();
-
-  if (!response.ok) {
-    throw new Error(
-      result.message ||
-      'Unable to update alert location.'
-    );
-  }
-
-  return result;
+  return parseResponse(
+    response,
+    'Unable to update alert location.'
+  );
 };
 
-const resolveAlert = async (
-  alertId,
-  resolutionNote
-) => {
+const resolveAlert = async (alertId, resolutionNote) => {
   const response = await fetch(
     `${API_BASE_URL}/alerts/${alertId}/resolve`,
     {
@@ -175,16 +152,10 @@ const resolveAlert = async (
     }
   );
 
-  const result = await response.json();
-
-  if (!response.ok) {
-    throw new Error(
-      result.message ||
-      'Unable to resolve emergency alert.'
-    );
-  }
-
-  return result;
+  return parseResponse(
+    response,
+    'Unable to resolve emergency alert.'
+  );
 };
 
 export {
