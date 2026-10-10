@@ -1,8 +1,26 @@
+import { useNavigate } from 'react-router-dom';
 import { FiArrowRight, FiShield } from 'react-icons/fi';
 
 import Button from '../components/common/Button';
 
 function Landing() {
+  const navigate = useNavigate();
+
+  const handleGetStarted = () => {
+    navigate('/register');
+  };
+
+  const handleLearnMore = () => {
+    const description = document.querySelector(
+      '.landing-hero__description'
+    );
+
+    description?.scrollIntoView({
+      behavior: 'smooth',
+      block: 'center'
+    });
+  };
+
   return (
     <main className="landing-page">
       <section className="landing-hero">
@@ -27,6 +45,7 @@ function Landing() {
               <Button
                 variant="primary"
                 size="large"
+                onClick={handleGetStarted}
               >
                 Get Started
                 <FiArrowRight aria-hidden="true" />
@@ -35,6 +54,7 @@ function Landing() {
               <Button
                 variant="outline"
                 size="large"
+                onClick={handleLearnMore}
               >
                 Learn More
               </Button>
