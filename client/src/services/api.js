@@ -1,4 +1,4 @@
-const API_BASE_URL = 'http://localhost:5000/api';
+const API_BASE_URL = 'https://silent-sos-api-cp9r.onrender.com/api';
 
 const request = async (endpoint, options = {}) => {
   const token = localStorage.getItem('token');
