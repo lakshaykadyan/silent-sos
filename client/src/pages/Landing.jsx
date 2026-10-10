@@ -7,7 +7,7 @@ function Landing() {
   const navigate = useNavigate();
 
   const handleGetStarted = () => {
-    navigate('/register');
+    navigate('/login');
   };
 
   const handleLearnMore = () => {
