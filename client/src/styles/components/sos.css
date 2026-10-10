@@ -1,0 +1,116 @@
+.sos-button {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 230px;
+  height: 230px;
+  margin: 0 auto;
+  padding: 0;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+}
+
+.sos-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.sos-button__ring {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 214px;
+  height: 214px;
+  background:
+    conic-gradient(
+      var(--color-danger) var(--sos-progress),
+      rgb(220 38 38 / 0.08) var(--sos-progress)
+    );
+  border-radius: 50%;
+  transition: transform var(--transition-fast);
+}
+
+.sos-button__ring::before {
+  position: absolute;
+  inset: 3px;
+  content: '';
+  background: var(--color-white);
+  border-radius: 50%;
+}
+
+.sos-button__core {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 154px;
+  height: 154px;
+  gap: var(--space-2);
+  color: var(--color-white);
+  background: var(--color-danger);
+  border: 8px solid rgb(255 255 255 / 0.9);
+  border-radius: 50%;
+  box-shadow:
+    0 14px 30px rgb(220 38 38 / 0.2),
+    0 0 0 1px rgb(220 38 38 / 0.1);
+  transition:
+    transform var(--transition-fast),
+    box-shadow var(--transition-fast);
+}
+
+.sos-button:hover:not(:disabled) .sos-button__core {
+  transform: scale(1.03);
+  box-shadow:
+    0 18px 38px rgb(220 38 38 / 0.25),
+    0 0 0 1px rgb(220 38 38 / 0.12);
+}
+
+.sos-button:active:not(:disabled) .sos-button__core,
+.sos-button--holding .sos-button__core {
+  transform: scale(0.96);
+  box-shadow:
+    0 10px 22px rgb(220 38 38 / 0.3),
+    0 0 0 8px rgb(220 38 38 / 0.08);
+}
+
+.sos-button:focus-visible {
+  outline: 3px solid rgb(20 184 166 / 0.35);
+  outline-offset: 8px;
+  border-radius: 50%;
+}
+
+.sos-button__icon {
+  width: 25px;
+  height: 25px;
+}
+
+.sos-button__label {
+  font-size: 1.8rem;
+  font-weight: var(--font-weight-bold);
+  letter-spacing: 0.08em;
+}
+
+@media (max-width: 600px) {
+  .sos-button {
+    width: 205px;
+    height: 205px;
+  }
+
+  .sos-button__ring {
+    width: 190px;
+    height: 190px;
+  }
+
+  .sos-button__core {
+    width: 138px;
+    height: 138px;
+  }
+}

@@ -1,0 +1,212 @@
+/* Location History */
+
+.location-history-section {
+  margin-top: 24px;
+  padding: 28px;
+  border: 1px solid var(--color-slate-200);
+  border-radius: 20px;
+  background: var(--color-white);
+  box-shadow: var(--shadow-sm);
+}
+
+.location-history-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+  padding-bottom: 22px;
+  border-bottom: 1px solid var(--color-slate-200);
+}
+
+.location-history-header h2 {
+  margin: 6px 0 6px;
+  color: var(--color-slate-900);
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.location-history-header p {
+  margin: 0;
+  color: var(--color-slate-500);
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+.location-history-count {
+  flex-shrink: 0;
+  padding: 8px 12px;
+  border: 1px solid var(--color-slate-200);
+  border-radius: 999px;
+  background: var(--color-slate-50);
+  color: var(--color-slate-500);
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.location-history-list {
+  display: flex;
+  flex-direction: column;
+  margin-top: 4px;
+}
+
+.location-history-item {
+  position: relative;
+  display: flex;
+  gap: 18px;
+  padding: 22px 0;
+}
+
+.location-history-item:not(:last-child)::after {
+  position: absolute;
+  top: 62px;
+  bottom: -1px;
+  left: 17px;
+  width: 1px;
+  background: var(--color-slate-200);
+  content: '';
+}
+
+.location-history-item__marker {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 35px;
+  height: 35px;
+  border: 1px solid var(--color-slate-200);
+  border-radius: 50%;
+  background: var(--color-white);
+  color: var(--color-primary-700);
+}
+
+.location-history-item__marker svg {
+  width: 16px;
+  height: 16px;
+}
+
+.location-history-item__content {
+  flex: 1;
+  min-width: 0;
+}
+
+.location-history-item__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 14px;
+}
+
+.location-history-item__header strong {
+  color: var(--color-slate-900);
+  font-size: 0.92rem;
+  font-weight: 700;
+}
+
+.location-history-item__header span {
+  color: var(--color-slate-500);
+  font-size: 0.82rem;
+  white-space: nowrap;
+}
+
+.location-history-item__details {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 9px 0;
+}
+
+.location-history-item__details span {
+  color: var(--color-slate-500);
+  font-size: 0.82rem;
+}
+
+.location-history-item__details strong {
+  color: var(--color-slate-900);
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-align: right;
+}
+
+.location-history-state {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 120px;
+  color: var(--color-slate-500);
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+.location-history-state svg {
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+}
+
+.location-history-state--error {
+  color: var(--color-danger);
+}
+
+@media (max-width: 700px) {
+  .location-history-section {
+    padding: 22px;
+    border-radius: 16px;
+  }
+
+  .location-history-header {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .location-history-item {
+    gap: 14px;
+  }
+
+  .location-history-item__header {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .location-history-item__header span {
+    white-space: normal;
+  }
+
+  .location-history-item__details {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .location-history-item__details strong {
+    text-align: left;
+    word-break: break-word;
+  }
+}
+
+@media (max-width: 600px) {
+  .location-history-section {
+    padding: 18px;
+  }
+
+  .location-history-item {
+    padding: 18px 0;
+  }
+
+  .location-history-item__marker {
+    width: 32px;
+    height: 32px;
+  }
+
+  .location-history-item:not(:last-child)::after {
+    top: 58px;
+    left: 15px;
+  }
+}

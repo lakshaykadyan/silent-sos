@@ -1,0 +1,118 @@
+/* Alert Detail */
+
+.alert-detail-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 24px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--color-slate-500);
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.alert-detail-back:hover {
+  color: var(--color-primary-700);
+  transform: translateX(-2px);
+}
+
+.alert-detail-back:focus-visible {
+  outline: 2px solid var(--color-primary-700);
+  outline-offset: 4px;
+  border-radius: 4px;
+}
+
+.alert-detail-back svg {
+  width: 17px;
+  height: 17px;
+}
+
+.alert-detail-card {
+  overflow: hidden;
+  padding: 28px;
+  border: 1px solid var(--color-slate-200);
+  border-radius: 20px;
+  background: var(--color-white);
+  box-shadow: var(--shadow-sm);
+}
+
+.alert-detail-card__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--color-slate-200);
+}
+
+.alert-detail-card__header h2 {
+  margin: 6px 0 0;
+  color: var(--color-slate-900);
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.alert-detail-location {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  margin-top: 20px;
+  padding: 18px 20px;
+  border: 1px solid var(--color-slate-200);
+  border-radius: 14px;
+  background: var(--color-slate-50);
+}
+
+.alert-detail-location span {
+  color: var(--color-slate-500);
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.alert-detail-location strong {
+  color: var(--color-slate-900);
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-align: right;
+}
+
+@media (max-width: 700px) {
+  .alert-detail-card {
+    padding: 22px;
+    border-radius: 16px;
+  }
+
+  .alert-detail-card__header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .alert-detail-location {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .alert-detail-location strong {
+    text-align: left;
+    word-break: break-word;
+  }
+}
+
+@media (max-width: 600px) {
+  .alert-detail-back {
+    margin-bottom: 18px;
+  }
+
+  .alert-detail-card {
+    padding: 18px;
+  }
+}
