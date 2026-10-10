@@ -41,7 +41,7 @@ function AdminAlertDetail() {
       const token = localStorage.getItem('token');
 
       const response = await fetch(
-        `http://localhost:5000/api/admin/alerts/${id}`,
+        `https://silent-sos-api-cp9r.onrender.com/api/admin/alerts/${id}`,
         {
           method: 'GET',
           headers: {
@@ -86,7 +86,7 @@ function AdminAlertDetail() {
         const token = localStorage.getItem('token');
 
         const response = await fetch(
-          `http://localhost:5000/api/admin/alerts/${id}`,
+          `https://silent-sos-api-cp9r.onrender.com/api9r.onrender.com/api/admin/alerts/${id}`,
           {
             method: 'GET',
             headers: {
@@ -155,7 +155,7 @@ function AdminAlertDetail() {
       const token = localStorage.getItem('token');
 
       const response = await fetch(
-        `http://localhost:5000/api/admin/alerts/${alertData._id}/acknowledge`,
+        `https://silent-sos-api-cp9r.onrender.com/api/admin/alerts/${alertData._id}/acknowledge`,
         {
           method: 'POST',
           headers: {
@@ -217,7 +217,7 @@ function AdminAlertDetail() {
       const token = localStorage.getItem('token');
 
       const response = await fetch(
-        `http://localhost:5000/api/admin/alerts/${alertData._id}/resolve`,
+        `https://silent-sos-api-cp9r.onrender.com/api/admin/alerts/${alertData._id}/resolve`,
         {
           method: 'POST',
           headers: {

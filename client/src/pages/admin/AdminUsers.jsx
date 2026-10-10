@@ -29,7 +29,7 @@ function AdminUsers() {
       const token = localStorage.getItem('token');
 
       const response = await fetch(
-        'http://localhost:5000/api/admin/users',
+        'https://silent-sos-api-cp9r.onrender.com/api/admin/users',
         {
           method: 'GET',
           headers: {
@@ -67,7 +67,7 @@ function AdminUsers() {
         const token = localStorage.getItem('token');
 
         const response = await fetch(
-          'http://localhost:5000/api/admin/users',
+          'https://silent-sos-api-cp9r.onrender.com/api/admin/users',
           {
             method: 'GET',
             headers: {

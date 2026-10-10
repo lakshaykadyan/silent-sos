@@ -20,7 +20,7 @@ import Header from '../../components/common/Header';
 import '../../styles/pages/admin.css';
 
 const API_BASE_URL =
-  'http://localhost:5000/api';
+  'https://silent-sos-api-cp9r.onrender.com/api';
 
 function AdminDashboard() {
   const navigate = useNavigate();

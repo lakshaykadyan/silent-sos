@@ -21,7 +21,7 @@ import BackButton from '../../components/common/BackButton';
 import '../../styles/pages/admin-alerts.css';
 
 const API_BASE_URL =
-  'http://localhost:5000/api';
+  'https://silent-sos-api-cp9r.onrender.com/api';
 
 const getAlertsEndpoint = (filter) => {
   switch (filter) {
